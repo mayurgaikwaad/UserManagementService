@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <title>The jQuery Example</title>
+      <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+      </script>
+		
+      <script type = "text/javascript">
+         $(document).ready(function() {
+            $("#btn").click(function(){
+				var name = $("#name").val();
+				var passportNumber = $("#passportNumber").val();
+				var json = {
+					"name": name, 
+					"passportNumber": passportNumber
+				};
+				var dataV = JSON.stringify(json);
+				alert(dataV);
+				$.ajax({
+					type: "post",
+					url: "http://localhost:8081/user/add",
+					data: dataV,
+					crossDomain: true,
+					crossOrigin: true,
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					success: function(xml) {
+						alert("Done..");
+					}
+				});
+			})
+         });
+      </script>
+</head>
+
+<body>
+	<div style="padding-left: 50px; font-family: monospace;">
+		<h2>Create User</h2>
+		<form id="createUser" method="post">
+			<div style="width: 100px; text-align: left;">
+				<div style="padding: 10px;">
+					Name: <input type="text" id="name" />
+				</div>
+				<div style="padding: 10px;">
+					Passport Number: <input type="text" id="passportNumber" />
+				</div>
+				<div style="padding: 20px; text-align: center">
+					<input id="btn" type="button" value="Submit" />
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
